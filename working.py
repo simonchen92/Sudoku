@@ -81,8 +81,6 @@ def print_board(board):
             else:
                 print(str(board[i][j]) + " ", end="")
 
-print_board(board)
-
 # find empty square/spaces we are trying to solve for
 def find_empty(board):
     for i in range(len(board)):
@@ -90,3 +88,10 @@ def find_empty(board):
             if board[i][j] == 0:
                 return (i, j) # row, column
     return None # no blank squares
+
+print_board(board)
+solve(board)
+print("-------------------------------------")
+print("Solution Below")
+print("-------------------------------------")
+print_board(board)
