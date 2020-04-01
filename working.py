@@ -10,32 +10,28 @@ board = [
     [0,4,9,2,0,6,0,0,7]
 ]
 
-# Backtracking algorithm with recursion
-def solve(board):
+# Visual output of board
+def print_board(board):
+    for i in range(len(board)):
+        if i % 3 == 0 and i != 0:
+            print("- - - - - - - - - - - -")
 
-    find = find_empty(board)
-    if not find:
-        return True
-    else:
-        row, col = find
+        for j in range(len(board[0])):
+            if j % 3 == 0 and j != 0:
+                print(" | ", end="")
 
-    for i in range(1,10):
-        # check if number inserted is valid num
-        if valid_num(board, i, (row, col)):
-            # if value added is valid, add to board
-            board[row][col] = i
+            if j == 8:
+                print(board[i][j])
+            else:
+                print(str(board[i][j]) + " ", end="")
 
-            # recursively solve the board until we try and find all the correct value on board
-            # if we loop through all numbers and no nums are valid we will return false
-            # if solve isnt true then we will then backtrack to previous value and reset value and try different value
-            if solve(board):
-                return True
-
-            board[row][col] = 0
-    
-    return False
-
-
+# find empty square/spaces we are trying to solve for
+def find_empty(board):
+    for i in range(len(board)):
+        for j in range(len(board[0])): # length of each row
+            if board[i][j] == 0:
+                return (i, j) # row, column
+    return None # no blank squares
 
 # Is the number given valid / correct or not
 def valid_num(board, num, position):
@@ -65,29 +61,30 @@ def valid_num(board, num, position):
     return True
 
 
+# Backtracking algorithm with recursion
+def solve(board):
 
-# Visual output of board
-def print_board(board):
-    for i in range(len(board)):
-        if i % 3 == 0 and i != 0:
-            print("- - - - - - - - - - - -")
+    find = find_empty(board)
+    if not find:
+        return True
+    else:
+        row, col = find
 
-        for j in range(len(board[0])):
-            if j % 3 == 0 and j != 0:
-                print(" | ", end="")
+    for i in range(1,10):
+        # check if number inserted is valid num
+        if valid_num(board, i, (row, col)):
+            # if value added is valid, add to board
+            board[row][col] = i
 
-            if j == 8:
-                print(board[i][j])
-            else:
-                print(str(board[i][j]) + " ", end="")
+            # recursively solve the board until we try and find all the correct value on board
+            # if we loop through all numbers and no nums are valid we will return false
+            # if solve isnt true then we will then backtrack to previous value and reset value and try different value
+            if solve(board):
+                return True
 
-# find empty square/spaces we are trying to solve for
-def find_empty(board):
-    for i in range(len(board)):
-        for j in range(len(board[0])): # length of each row
-            if board[i][j] == 0:
-                return (i, j) # row, column
-    return None # no blank squares
+            board[row][col] = 0
+    
+    return False
 
 print_board(board)
 solve(board)
