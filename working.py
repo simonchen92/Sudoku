@@ -10,6 +10,33 @@ board = [
     [0,4,9,2,0,6,0,0,7]
 ]
 
+# Backtracking algorithm with recursion
+def solve(board):
+
+    find = find_empty(board)
+    if not find:
+        return True
+    else:
+        row, col = find
+
+    for i in range(1,10):
+        # check if number inserted is valid num
+        if valid_num(board, i, (row, col)):
+            # if value added is valid, add to board
+            board[row][col] = i
+
+            # recursively solve the board until we try and find all the correct value on board
+            # if we loop through all numbers and no nums are valid we will return false
+            # if solve isnt true then we will then backtrack to previous value and reset value and try different value
+            if solve(board):
+                return True
+
+            board[row][col] = 0
+    
+    return False
+
+
+
 # Is the number given valid / correct or not
 def valid_num(board, num, position):
     # Check row
