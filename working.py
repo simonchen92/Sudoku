@@ -55,7 +55,7 @@ def valid_num(board, num, position):
 
     for i in range(box_y * 3, box_y * 3 + 3):
         for j in range(box_x * 3, box_x * 3 + 3):
-            if board[i][j] == num and (i, j) != num: # check the value we inserted and make sure it wasnt already added
+            if board[i][j] == num and (i, j) != position: # check the value we inserted and make sure it wasnt already added
                 return False # return false if duplicate is found
 
     return True
